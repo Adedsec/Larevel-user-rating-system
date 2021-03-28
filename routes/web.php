@@ -20,3 +20,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('topic/new', 'TopicController@new')->name('topic.new');
+Route::post('topic', 'TopicController@store')->name('topic.store');
+Route::get('topics', 'TopicController@index')->name('topics');
+Route::get('topic/{topic}', 'TopicController@show')->name('topic.show');
+
+Route::post('topic/{topic}/reply', 'ReplyController@store')->name('reply.store');
+Route::get('badge/new', 'BadgeController@new')->name('badge.new');
+Route::post('badge', 'BadgeController@store')->name('badge.store');
+
+

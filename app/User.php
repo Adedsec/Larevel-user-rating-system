@@ -36,4 +36,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
+
+
+    public function userStat()
+    {
+        return $this->hasOne(UserStat::class);
+    }
+
+    public function incrementXp($xp = 1)
+    {
+        $this->userStat->xp += $xp;
+        $this->userStat->save();
+    }
+
+    public function incrementTopicCount()
+    {
+        $this->userStat->topic_count++;
+        $this->userStat->save();
+    }
+
+    public function incrementReplyCount()
+    {
+        $this->userStat->reply_count++;
+        $this->userStat->save();
+    }
 }

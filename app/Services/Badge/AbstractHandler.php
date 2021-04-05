@@ -4,6 +4,8 @@
 namespace App\Services\Badge;
 
 
+use App\Badge;
+use App\User;
 use App\UserStat;
 
 class AbstractHandler implements Handler
@@ -24,4 +26,16 @@ class AbstractHandler implements Handler
 
         return null;
     }
+
+    public function applyBadge(UserStat $userStat)
+    {
+        $availableBadges = $this->getAvailableBadges($userStat);
+        $userBadges = $userStat->user->badges;
+        $notRecievedBadges = $availableBadges->diff($userBadges);
+        if ($notRecievedBadges->isEmpty()) return;
+
+        $userStat->user->badges()->attach($notRecievedBadges);
+    }
+
+    abstract protected function getAvailableBadges(UserStat $userStat);
 }

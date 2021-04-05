@@ -16,14 +16,10 @@ class ReplyHandler extends AbstractHandler
         return parent::handle($userStat);
     }
 
-    private function applyBadge(UserStat $userStat)
+    protected function getAvailableBadges(UserStat $userStat)
     {
-        $availableBadges = Badge::reply()->where('required_number', '<=', $userStat->reply_count)->get();
-        $userBadges = $userStat->user->badges;
-        $notRecievedBadges = $availableBadges->diff($userBadges);
-        if ($notRecievedBadges->isEmpty()) return;
+        return Badge::reply()->where('required_number', '<=', $userStat->reply_count)->get();
 
-        $userStat->user->badges()->attach($notRecievedBadges);
     }
 
 }

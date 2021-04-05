@@ -14,7 +14,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $user->userStat->create();
+        $user->userStat()->create();
     }
 
 

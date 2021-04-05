@@ -18,6 +18,6 @@ class Reply extends Model
     public function getCreatedAtAttribute($value)
     {
         $time = new \Verta($value);
-        return $time->formatDefference();
+        return $time->formatDifference();
     }
 }

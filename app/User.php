@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->hasOne(UserStat::class);
     }
 
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class)->withTimestamps();
+    }
+
     public function incrementXp($xp = 1)
     {
         $this->userStat->xp += $xp;
